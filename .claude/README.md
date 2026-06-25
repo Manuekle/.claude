@@ -28,6 +28,53 @@ cp -r .claude/ ~/.claude/
 
 > **Nota**: Los hooks en `settings.json` usan paths relativos (`.claude/hooks/`). Si copias a `~/.claude/`, cambia los paths en `settings.json` de `.claude/hooks/` a `~/.claude/hooks/`.
 
+### Proyecto existente (ya tiene `.claude/`)
+
+Si el proyecto ya tiene carpeta `.claude/` con su propia config, haz merge manual:
+
+```bash
+# Clona el repo afuera del proyecto
+cd /tmp
+git clone git@github.com:Manuekle/.claude.git
+
+# Vuelve a tu proyecto
+cd /ruta/de/tu/proyecto
+
+# Merge agents (cada .md es un sub-agent)
+cp -n /tmp/.claude/agents/*.md .claude/agents/
+
+# Merge skills
+cp -rn /tmp/.claude/skills/* .claude/skills/
+
+# Merge commands
+cp -n /tmp/.claude/commands/*.md .claude/commands/
+
+# Merge hooks
+cp -n /tmp/.claude/hooks/*.py .claude/hooks/
+
+# Merge settings.json (UNION de permisos, no overwrite)
+# Mezcla manual: combina arrays "allow" de ambos archivos
+```
+
+**Recomendado**: Usa `diff` para revisar diferencias antes de mezclar:
+```bash
+diff .claude/settings.json /tmp/.claude/settings.json
+```
+
+Los archivos existentes NO se sobrescriben (flag `-n` en cp). Si quieres reemplazar los tuyos por estos, omite `-n`.
+
+### Post-instalación
+
+Verifica que funcione:
+```bash
+# Claude debería cargar agents, commands y hooks
+# Prueba un comando:
+/commit --help
+
+# O ejecuta un agente:
+Usa el Agent tool para lanzar "test-runner"
+```
+
 ## Qué incluye
 
 | Ruta | Descripción |
