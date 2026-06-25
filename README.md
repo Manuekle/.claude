@@ -75,6 +75,90 @@ Verifica que funcione:
 Usa el Agent tool para lanzar "test-runner"
 ```
 
+## Cómo empezar a usar Claude Code
+
+### 1. Abrir Claude Code
+
+```bash
+# En la raíz de tu proyecto
+claude
+
+# O apuntando a un directorio específico
+claude /ruta/del/proyecto
+```
+
+### 2. Usar comandos slash
+
+Los comandos slash se escriben directo en el chat:
+
+```
+/commit         → Crea commit convencional de cambios recientes
+/arch-review    → Revisa arquitectura del código
+/bugs           → Busca errores lógicos
+/ui-review      → Revisa UI/UX y accesibilidad
+/arewedone      → Verifica que los cambios estén completos
+```
+
+### 3. Invocar agents
+
+Los agents se lanzan desde el chat con el Agent tool:
+
+```
+"Ejecuta el test-runner para verificar que todo pase"
+"Usa el architecture-reviewer para revisar src/components/"
+"Lanza el bug-finder en esta función que acabo de escribir"
+```
+
+Claude Code detecta automáticamente cuándo usar un agente según la descripción del mismo.
+
+### 4. Usar skills
+
+Las skills cargan conocimiento especializado. Claude las usa automáticamente cuando el contexto lo requiere:
+
+- Tocas un archivo Prisma → carga skill `prisma-expert`
+- Hablas de rendimiento → carga skill `performance`
+- Mencionas SEO → carga skill `seo-geo`
+- Trabajas con Supabase → carga skill `supabase`
+
+También puedes forzar una skill:
+```
+"Usa la skill de accessibility para revisar este componente"
+"Carga la skill de frontend-design para mejorar esta landing page"
+```
+
+### 5. Flujo de trabajo típico
+
+```bash
+# 1. Abres Claude en tu proyecto
+claude
+
+# 2. Pides un cambio
+"Agrega una página de login con email y contraseña"
+
+# 3. Claude implementa, luego usas /arch-review para revisar
+/arch-review
+
+# 4. Corriges si hay observaciones, luego /arewedone
+/arewedone
+
+# 5. Finalmente /commit para hacer commit
+/commit
+
+# 6. Y /bugs para asegurarte que no hay errores
+/bugs
+```
+
+### 6. Atajos útiles
+
+| Acción | Comando |
+|--------|---------|
+| Limpiar conversación | `/clear` |
+| Mostrar costo de sesión | `/cost` |
+| Compactar contexto | `/compact` |
+| Cambiar modelo | `/model sonnet` |
+| Ver settings activos | `/settings` |
+| Ayuda rápida | `/help` |
+
 ## Qué incluye
 
 | Ruta | Descripción |
